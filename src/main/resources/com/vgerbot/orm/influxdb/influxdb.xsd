@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
 <xsd:schema xmlns="http://www.vgerbot.com/schema/influxdb"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
-	targetNamespace="http://www.vgerbot.com/schema/influxdb"
-=======
-<xsd:schema xmlns="http://www.aiya.com/schema/influxdb"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
-	targetNamespace="http://www.aiya.com/schema/influxdb"
->>>>>>> 900f794d7ccf3fc7b093ac131f0cfa76c4f1c35d
-	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	targetNamespace="http://www.vgerbot.com/schema/influxdb">
+	
 	<xsd:import namespace="http://www.springframework.org/schema/beans"
 		schemaLocation="http://www.springframework.org/schema/beans/spring-beans-4.2.xsd" />
 	<xsd:annotation>
