@@ -9,7 +9,7 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 
 	public static Class<?> getInterfaceGenericType(Class<?> clazz, int typeIndex) {
 		Assert.notNull(clazz, "class is required");
-		Assert.isTrue(typeIndex >= 0, "Negative type index");
+		Assert.isTrue(typeIndex >= 0, "Negative index");
 
 		Type[] genericInterfaces = clazz.getGenericInterfaces();
 		if (genericInterfaces == null || genericInterfaces.length < 1) {

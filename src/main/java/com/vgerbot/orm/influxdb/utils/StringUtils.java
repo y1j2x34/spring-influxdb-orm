@@ -3,23 +3,7 @@ package com.vgerbot.orm.influxdb.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StringUtils extends org.springframework.util.StringUtils {
-	public static boolean isNotBlank(CharSequence cs) {
-		return !isBlank(cs);
-	}
-
-	public static boolean isBlank(CharSequence cs) {
-		if (cs == null || cs.length() < 1) {
-			return true;
-		}
-		int strLen = cs.length();
-		for (int i = 0; i < strLen; i++) {
-			if (!Character.isWhitespace(cs.charAt(i))) {
-				return false;
-			}
-		}
-		return false;
-	}
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 	/**
 	 * 正则匹配替换，类似js中的replace
