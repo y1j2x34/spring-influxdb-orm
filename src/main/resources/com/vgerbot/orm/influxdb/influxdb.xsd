@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.vgerbot.com/schema/influxdb"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
+	targetNamespace="http://www.vgerbot.com/schema/influxdb"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+		schemaLocation="http://www.springframework.org/schema/beans/spring-beans-4.2.xsd" />
+	<xsd:annotation>
+		<xsd:documentation>
+			<![CDATA[
+				influxdb xml schema
+			]]>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="mapper">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="datasource">
+					<xsd:complexType>
+						<xsd:attribute name="scheme" default="http">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+										协议名称, 只支持http
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="host" default="127.0.0.1">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+										数据库主机地址
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="port" default="8086">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+										端口， 默认8086
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="username">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+										登录名
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="password">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									密码
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="database" use="required">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[
+									数据库名称
+									]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="config" minOccurs="0">
+					<xsd:complexType>
+						<xsd:attribute name="enable-gzip"
+							default="false">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[是否开启gzip压缩]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="enable-batch"
+							default="false">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[batch]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="batch-actions"
+							default="2000">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="batch-flush-duration"
+							default="100">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="http-connect-timeout" default="10000">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[http连接超时时间，单位：毫秒]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="http-read-timeout" default="10000">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[http读取超时时间，单位：毫秒]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="http-write-timeout" default="10000">
+							<xsd:annotation>
+								<xsd:documentation>
+									<![CDATA[http写入超时时间，单位：毫秒]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="dao-base-package" use="required" />
+			<xsd:attribute name="entity-base-package" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
