@@ -1,1 +1,1 @@
-http\://www.vgerbot.com/schema/influxdb/influxdb.xsd=com.vgerbot.orm.influxdb.config.InfluxDBNamespaceHandler
+http\://www.vgerbot.com/schema/influxdb=com.vgerbot.orm.influxdb.config.InfluxDBNamespaceHandler

@@ -4,12 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 			http://www.vgerbot.com/schema/influxdb http://www.vgerbot.com/schema/influxdb/influxdb.xsd">
 
-	<influxdb:mapper entity-base-package="com.vgerbot.platform.influxdb.test.orm.entity"
-		dao-base-package="com.vgerbot.platform.influxdb.test.orm.dao">
-
-		<influxdb:datasource database="my-database" host="127.0.0.1"
+	<influxdb:mapper entity-base-package="com.vgerbot.test.orm.influxdb.entity"
+		dao-base-package="com.vgerbot.test.orm.influxdb.dao">
+		<influxdb:datasource database="test" host="127.0.0.1"
 			port="8086" scheme="http" username="admin" password="Q2hlbnl1ZmVuZw==" />
-		
 		<influxdb:config enable-gzip="false"
 			http-connect-timeout="10000" http-read-timeout="10000"
 			http-write-timeout="10000" />
