@@ -3,8 +3,8 @@ package com.vgerbot.orm.influxdb.result.resolver;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.binding.MethodSignature;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 import com.vgerbot.orm.influxdb.result.ResultContext;
 import com.vgerbot.orm.influxdb.result.ResultResolver;

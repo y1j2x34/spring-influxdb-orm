@@ -4,9 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.annotations.SpecifiedExecutor;
 import com.vgerbot.orm.influxdb.binding.MapperMethod;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 import com.vgerbot.orm.influxdb.param.ParameterValue;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 import com.vgerbot.orm.influxdb.result.ResultContext;

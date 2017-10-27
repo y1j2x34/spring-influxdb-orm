@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.util.CollectionUtils;
 
 import com.vgerbot.orm.influxdb.InfluxDBDao;
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.binding.MapperMethod;
 import com.vgerbot.orm.influxdb.binding.MethodSignature;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
 import com.vgerbot.orm.influxdb.param.ParameterValue;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;

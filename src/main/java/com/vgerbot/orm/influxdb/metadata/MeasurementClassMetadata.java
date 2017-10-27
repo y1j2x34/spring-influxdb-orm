@@ -12,10 +12,10 @@ import java.util.Map;
 
 import org.springframework.util.ReflectionUtils;
 
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.annotations.FieldColumn;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBMeasurement;
 import com.vgerbot.orm.influxdb.annotations.TagColumn;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 
 public class MeasurementClassMetadata {
 

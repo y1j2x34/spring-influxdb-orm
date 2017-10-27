@@ -23,7 +23,7 @@ import org.springframework.beans.TypeConverterSupport;
 import org.springframework.util.CollectionUtils;
 
 import com.vgerbot.orm.influxdb.EnumType;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
 import com.vgerbot.orm.influxdb.result.NativeResultContext;
 import com.vgerbot.orm.influxdb.result.ResultContext;

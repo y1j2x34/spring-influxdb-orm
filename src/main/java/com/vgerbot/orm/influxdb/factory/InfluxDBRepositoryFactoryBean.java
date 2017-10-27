@@ -18,8 +18,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBMeasurement;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 import com.vgerbot.orm.influxdb.utils.ClasspathScanner;
