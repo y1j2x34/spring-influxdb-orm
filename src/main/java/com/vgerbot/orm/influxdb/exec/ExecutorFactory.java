@@ -5,9 +5,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.vgerbot.orm.influxdb.InfluxDBDao;
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.annotations.AnnotateExecutor;
 import com.vgerbot.orm.influxdb.binding.MethodSignature;
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 
 public class ExecutorFactory {

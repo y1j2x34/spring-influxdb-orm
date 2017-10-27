@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.TypeConverter;
 
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
 
 public class BeanConvertUtils {

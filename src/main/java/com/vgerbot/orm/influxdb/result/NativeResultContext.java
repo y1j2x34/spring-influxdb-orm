@@ -13,7 +13,7 @@ import org.influxdb.dto.QueryResult;
 import org.influxdb.dto.QueryResult.Result;
 import org.influxdb.dto.QueryResult.Series;
 
-import com.vgerbot.orm.influxdb.exception.InfluxDBException;
+import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.utils.StringUtils;
 
 public class NativeResultContext implements ResultContext {
