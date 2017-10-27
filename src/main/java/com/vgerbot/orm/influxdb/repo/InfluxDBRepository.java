@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.influxdb.InfluxDB;
@@ -32,6 +34,8 @@ import com.vgerbot.orm.influxdb.supports.EnumsValuePropertyEditor;
 import com.vgerbot.orm.influxdb.utils.BeanConvertUtils;
 
 public class InfluxDBRepository {
+
+	private static final Logger logger = Logger.getLogger(InfluxDBRepository.class.getCanonicalName());
 
 	public static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.MILLISECONDS;
 
@@ -64,11 +68,17 @@ public class InfluxDBRepository {
 	}
 
 	public void execute(final String command) {
+		if (logger.isLoggable(Level.INFO)) {
+			logger.info("execute → " + command);
+		}
 		final Query query = new Query(command, databaseName);
 		influxDB.query(query, DEFAULT_TIME_UNIT);
 	}
 
 	public ResultContext query(final String command) {
+		if (logger.isLoggable(Level.INFO)) {
+			logger.info("query → " + command);
+		}
 		final Query query = new Query(command, databaseName);
 		final QueryResult queryResult = influxDB.query(query, DEFAULT_TIME_UNIT);
 		return new NativeResultContext(queryResult);

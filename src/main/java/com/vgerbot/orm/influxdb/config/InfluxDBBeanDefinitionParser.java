@@ -52,6 +52,7 @@ public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 		if (configElement == null) {
 			return;
 		}
+
 		String enableBatch = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_ENABLE_BATCH_ATTRIBUTE);
 		String batchActions = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_BATCH_ACTIONS_ATTRIBUTE);
 		String batchFlushDuration = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_BATCH_FLUSH_DURATION_ATTRIBUTE);
@@ -94,6 +95,7 @@ public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.USERNAME_FIELD_NAME, username);
 		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.PASSWORD_FIELD_NAME, password);
 		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.DATABASE_FIELD_NAME, database);
+
 	}
 
 	@SuppressWarnings("unused")

@@ -103,8 +103,19 @@ public class InfluxDBRepositoryFactoryBean implements FactoryBean<InfluxDBReposi
 
 		Map<String, MeasurementClassMetadata> metadatas = new HashMap<>(measurementClasses.size());
 
+		String defaultRetentionPolicy = null;
+
+		String influxDBVersion = influxDB.version();
+
+		if ("1.0".compareTo(influxDBVersion) >= 0) {
+			defaultRetentionPolicy = "default";
+		} else {
+			defaultRetentionPolicy = "autogen";
+		}
+
 		for (Class<?> measurementClass : measurementClasses) {
-			metadatas.put(measurementClass.getName(), new MeasurementClassMetadata((Class<? extends Serializable>) measurementClass));
+			metadatas.put(measurementClass.getName(),
+					new MeasurementClassMetadata((Class<? extends Serializable>) measurementClass, defaultRetentionPolicy));
 		}
 
 		repository = new InfluxDBRepository(influxDB, databaseName, metadatas);

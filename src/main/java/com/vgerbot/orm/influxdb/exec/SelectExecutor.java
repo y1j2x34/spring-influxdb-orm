@@ -10,7 +10,6 @@ import com.vgerbot.orm.influxdb.result.ResultContext;
 import com.vgerbot.orm.influxdb.utils.CommandUtils;
 
 public class SelectExecutor extends AnnotationExecutor<InfluxDBSelect> {
-
 	public SelectExecutor(InfluxDBRepository repository, InfluxDBSelect selectAnnotation) {
 		super(repository, selectAnnotation);
 	}

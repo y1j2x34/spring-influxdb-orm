@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
 import com.vgerbot.orm.influxdb.InfluxDBException;
@@ -48,7 +49,7 @@ public class MeasurementClassMetadata {
 	private String[] datetimePatterns;
 	private final int _hashcode;
 
-	public MeasurementClassMetadata(Class<? extends Serializable> measurementClass) {
+	public MeasurementClassMetadata(Class<? extends Serializable> measurementClass, String defaultRetentionPolicy) {
 		this.measurementClass = measurementClass;
 		tagColumnJavaFieldNameMap = new HashMap<>();
 		fieldColumnJavaFieldNameMap = new HashMap<>();
@@ -74,7 +75,7 @@ public class MeasurementClassMetadata {
 		assertMeasurementAnnotationNotNull(annotation);
 
 		this.measurementName = annotation.value();
-		this.retentionPolicy = annotation.retentionPolicy();
+		this.retentionPolicy = StringUtils.isBlank(annotation.retentionPolicy()) ? defaultRetentionPolicy : annotation.retentionPolicy();
 		this.shardingFieldDescriptor = descriptorsMap.get(annotation.shardingField());
 
 		findFields(descriptorsMap);

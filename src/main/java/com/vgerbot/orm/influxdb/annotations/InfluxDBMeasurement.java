@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface InfluxDBMeasurement {
 	String value();
 
-	String retentionPolicy() default "autogen";
+	String retentionPolicy() default "";
 
 	String shardingField() default "";
 
