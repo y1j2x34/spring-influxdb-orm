@@ -26,15 +26,18 @@ public class ExecutorFactory {
 		if (executorClass != null) {
 			return newAnnotationExecutorInstance(executorClass, signature, repository);
 		}
+
+		executorClass = findImplementationExecutor(signature);
+		if (executorClass != null) {
+			return newImplementationExecutorInstance(executorClass, repository);
+		}
+
 		executorClass = findXmlExecutor(signature);
 		if (executorClass != null) {
 			return newXmlExecutorInstance(signature, repository);
 		}
-		executorClass = findImplementationExecutor(signature);
-		if (executorClass == null) {
-			throw new InfluxDBException("No executor found for method: " + signature.getMethod());
-		}
-		return newImplementationExecutorInstance(executorClass, repository);
+
+		throw new InfluxDBException("No executor found for method: " + signature.getMethod());
 	}
 
 	private Class<? extends Executor> findXmlExecutor(MethodSignature signature) {
