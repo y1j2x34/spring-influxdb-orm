@@ -109,4 +109,8 @@ public class CensusMeasurement implements Serializable {
 		return true;
 	}
 
+	public String toString() {
+		return "[time: " + time.getTime() + ", location: " + location + ", scientist: " + scientist + ", butterflies: " + butterflies
+				+ ", honeybees: " + honeybees + "]";
+	}
 }
