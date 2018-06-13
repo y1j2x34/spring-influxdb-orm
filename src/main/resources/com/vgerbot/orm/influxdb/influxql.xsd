@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.vgerbot.com/schema/influxql"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.vgerbot.com/schema/influxql">
+	<xsd:annotation>
+		<xsd:documentation>
+			<![CDATA[
+				influxql xml schema
+			]]>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:element name="influxql" type="InfluxqlType">
+		<xsd:unique name="UniqueExecuteId">
+			<xsd:selector xpath="execute"/>
+			<xsd:field xpath="@id"/>
+		</xsd:unique>
+		<xsd:unique name="UniqueSelectId">
+			<xsd:selector xpath="select"/>
+			<xsd:field xpath="@id"/>
+		</xsd:unique>		
+	</xsd:element>
+	
+	<xsd:complexType name="InfluxqlType">
+		<xsd:all>
+			<xsd:element name="include">
+				<xsd:complexType>
+					<xsd:attribute name="path" use="required"/>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="select">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[select语句]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="id" type="xsd:string" use="required"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="execute">
+				<xsd:annotation>
+					<xsd:documentation>
+					<![CDATA[非select语句]]>
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:string">
+							<xsd:attribute name="id" type="xsd:string" use="required"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+</xsd:schema>
