@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.7.RELEASE</spring.version>
-		<influxdb-java.version>2.5</influxdb-java.version>
+		<influxdb-java.version>2.10</influxdb-java.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 
