@@ -7,6 +7,7 @@ import com.vgerbot.orm.influxdb.InfluxDBDao;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBExecute;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBParam;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBSelect;
+import com.vgerbot.orm.influxdb.annotations.InfluxQL;
 import com.vgerbot.orm.influxdb.annotations.SpecifiedExecutor;
 import com.vgerbot.orm.influxdb.binding.MapperMethod;
 import com.vgerbot.orm.influxdb.exec.Executor;
@@ -34,6 +35,9 @@ public interface CensusDao extends InfluxDBDao<CensusMeasurement> {
 
 	@SpecifiedExecutor(HelloWorldExecutor.class)
 	public void hello();
+
+	@InfluxQL
+	public List<Map<String, Object>> findByScientist(@InfluxDBParam("scientist") String scientist);
 
 	class HelloWorldExecutor extends Executor {
 

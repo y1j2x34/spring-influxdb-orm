@@ -13,7 +13,7 @@
 		<influxdb:config enable-gzip="false"
 			http-connect-timeout="10000" http-read-timeout="10000"
 			http-write-timeout="10000" />
-
+		<influxdb:influxql path="classpath:influxql.xml"/>
 	</influxdb:mapper>
 
 </beans>

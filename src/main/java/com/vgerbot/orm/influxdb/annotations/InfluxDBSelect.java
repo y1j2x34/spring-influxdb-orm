@@ -11,5 +11,10 @@ import com.vgerbot.orm.influxdb.exec.SelectExecutor;
 @Target(ElementType.METHOD)
 @AnnotateExecutor(SelectExecutor.class)
 public @interface InfluxDBSelect {
+	/**
+	 * 直接提供查询语句
+	 * 
+	 * @return
+	 */
 	String value();
 }

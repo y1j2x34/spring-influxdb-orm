@@ -22,11 +22,13 @@
 	</xsd:element>
 	<xsd:element name="datasource" type="datasourceType" />
 	<xsd:element name="config" type="configType"/>
+	<xsd:element name="influxql" type="influxQLType"/>
 	
 	<xsd:group name="mapperElements">
 		<xsd:sequence>
 			<xsd:element ref="datasource" />
 			<xsd:element ref="config" minOccurs="0"/>
+			<xsd:element ref="influxql" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:group>
 	
@@ -39,6 +41,18 @@
 		<xsd:attribute name="dao-base-package" use="required" />
 		<xsd:attribute name="entity-base-package" use="required" />
 	</xsd:attributeGroup>
+	
+	<xsd:complexType name="influxQLType">
+		<xsd:attribute name="path" use="required">
+			<xsd:annotation>
+				<xsd:documentation>
+					<![CDATA[
+						influxQL配置文件路径
+					]]>
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
 	
 	<xsd:complexType name="configType">
 		<xsd:attribute name="enable-gzip"

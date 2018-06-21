@@ -21,6 +21,7 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.annotations.InfluxDBMeasurement;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
+import com.vgerbot.orm.influxdb.ql.InfluxQLMapper;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 import com.vgerbot.orm.influxdb.utils.ClasspathScanner;
 
@@ -42,6 +43,7 @@ public class InfluxDBRepositoryFactoryBean implements FactoryBean<InfluxDBReposi
 	public static final String CONNECT_TIMEOUT_SECONDS = "connectTimeoutSeconds";
 	public static final String READ_TIMEOUT_SECONDS = "readTimeoutSeconds";
 	public static final String WRITE_TIMEOUT_SECONDS = "writeTimeoutSeconds";
+	public static final String INFLUX_QL_RESOURCES = "influxQLResources";
 
 	public static final String MEASUREMENT_PACKAGE = "entityPackage";
 
@@ -62,6 +64,7 @@ public class InfluxDBRepositoryFactoryBean implements FactoryBean<InfluxDBReposi
 	private Long writeTimeoutSeconds = 10_000L;
 	private String databaseName;
 	private String entityPackage;
+	private String[] influxQLResources;
 
 	private Environment environment;
 
@@ -118,7 +121,16 @@ public class InfluxDBRepositoryFactoryBean implements FactoryBean<InfluxDBReposi
 					new MeasurementClassMetadata((Class<? extends Serializable>) measurementClass, defaultRetentionPolicy));
 		}
 
-		repository = new InfluxDBRepository(influxDB, databaseName, metadatas);
+		InfluxQLMapper mapper = InfluxQLMapper.empty();
+
+		if (influxQLResources != null) {
+			for (String resourceLocation : influxQLResources) {
+				InfluxQLMapper parsed = InfluxQLMapper.parseFrom(resourceLocation);
+				mapper = mapper.union(parsed);
+			}
+		}
+
+		repository = new InfluxDBRepository(influxDB, databaseName, metadatas, mapper);
 	}
 
 	public void setScheme(String scheme) {
@@ -183,6 +195,14 @@ public class InfluxDBRepositoryFactoryBean implements FactoryBean<InfluxDBReposi
 
 	public void setEntityPackage(String entityPackage) {
 		this.entityPackage = entityPackage;
+	}
+
+	public void setInfluxQLResources(String[] influxQLResources) {
+		this.influxQLResources = influxQLResources;
+	}
+
+	public void setInfluxQLResource(String influxQLResource) {
+		this.setInfluxQLResources(new String[] { influxQLResource });
 	}
 
 	@Override

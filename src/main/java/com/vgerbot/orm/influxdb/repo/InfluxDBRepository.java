@@ -27,6 +27,8 @@ import org.springframework.util.CollectionUtils;
 import com.vgerbot.orm.influxdb.EnumType;
 import com.vgerbot.orm.influxdb.InfluxDBException;
 import com.vgerbot.orm.influxdb.metadata.MeasurementClassMetadata;
+import com.vgerbot.orm.influxdb.ql.InfluxQLMapper;
+import com.vgerbot.orm.influxdb.ql.InfluxQLStatement;
 import com.vgerbot.orm.influxdb.result.NativeResultContext;
 import com.vgerbot.orm.influxdb.result.ResultContext;
 import com.vgerbot.orm.influxdb.supports.DatePropertyEditor;
@@ -53,12 +55,15 @@ public class InfluxDBRepository {
 
 	private final TypeConverterSupport typeConverter;
 
-	public InfluxDBRepository(final InfluxDB influxDB, final String databaseName,
-			final Map<String, MeasurementClassMetadata> classmetadata) {
+	private final InfluxQLMapper qlMapper;
+
+	public InfluxDBRepository(final InfluxDB influxDB, final String databaseName, final Map<String, MeasurementClassMetadata> classmetadata,
+			InfluxQLMapper qlMapper) {
 		super();
 		this.influxDB = influxDB;
 		this.databaseName = databaseName;
 		this.classmetadata = classmetadata;
+		this.qlMapper = qlMapper;
 		this.classmetadataMapByKey = new HashMap<>();
 		this.typeConverter = new SimpleTypeConverter();
 
@@ -276,6 +281,14 @@ public class InfluxDBRepository {
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new InfluxDBException("An error occurred while reading shard field value", e);
 		}
+	}
+
+	public InfluxDB getInfluxDB() {
+		return influxDB;
+	}
+
+	public InfluxQLStatement getStatement(String name) {
+		return qlMapper.getStatement(name);
 	}
 
 	public MeasurementClassMetadata getClassMetadata(final String measurementClassName) {

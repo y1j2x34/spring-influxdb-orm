@@ -43,8 +43,22 @@ public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 		parseDatasource(builder, element, parserContext);
 
 		parseConfig(builder, element, parserContext);
+		parseInfluxQLResources(builder, element, parserContext);
 
 		return parserContext.getReaderContext().registerWithGeneratedName(builder.getBeanDefinition());
+	}
+
+	private void parseInfluxQLResources(BeanDefinitionBuilder builder, Element element, ParserContext parserContext) {
+		List<Element> influxQLList = getChildren(element, InfluxDBNamespaceHandler.INFLUX_QL_ELEMENT);
+		if (influxQLList.isEmpty()) {
+			return;
+		}
+		List<String> resources = new ArrayList<>(influxQLList.size());
+		for (Element influxql : influxQLList) {
+			String path = influxql.getAttribute(InfluxDBNamespaceHandler.INFLUX_QL_ATTR_PATH);
+			resources.add(path);
+		}
+		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.INFLUX_QL_RESOURCES, resources.toArray(new String[resources.size()]));
 	}
 
 	private void parseConfig(BeanDefinitionBuilder builder, Element mapperElement, ParserContext parserContext) {
@@ -60,6 +74,7 @@ public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 		String httpReadTimeout = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_HTTP_READ_TIME_OUT);
 		String httpWriteTimeout = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_HTTP_WRITE_TIME_OUT);
 		String enableGzip = configElement.getAttribute(InfluxDBNamespaceHandler.CONFIG_ENABLE_GZIP);
+		// configElement.getAttribute(InfluxDBNamespaceHandler.)
 
 		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.ENABLE_BATCH_FIELD_NAME, enableBatch);
 		builder.addPropertyValue(InfluxDBRepositoryFactoryBean.BATCH_ACTIONS_FIELD_NAME, batchActions);

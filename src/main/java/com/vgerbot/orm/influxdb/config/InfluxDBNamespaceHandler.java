@@ -26,6 +26,9 @@ public class InfluxDBNamespaceHandler extends NamespaceHandlerSupport {
 	public static final String DAO_BASE_PACKAGE_ATTRIBUTE = "dao-base-package";
 	public static final String MEASUREMENT_BASE_PACKAGE_ATTRIBUTE = "entity-base-package";
 
+	public static final String INFLUX_QL_ELEMENT = "influxql";
+	public static final String INFLUX_QL_ATTR_PATH = "path";
+
 	@Override
 	public void init() {
 		registerBeanDefinitionParser("mapper", new InfluxDBBeanDefinitionParser());

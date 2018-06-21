@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://www.vgerbot.com/schema/influxql"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.vgerbot.com/schema/influxql">
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.vgerbot.com/schema/influxql" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+
 	<xsd:annotation>
 		<xsd:documentation>
 			<![CDATA[
@@ -9,23 +10,19 @@
 			]]>
 		</xsd:documentation>
 	</xsd:annotation>
-	
+
 	<xsd:element name="influxql" type="InfluxqlType">
-		<xsd:unique name="UniqueExecuteId">
-			<xsd:selector xpath="execute"/>
-			<xsd:field xpath="@id"/>
-		</xsd:unique>
 		<xsd:unique name="UniqueSelectId">
-			<xsd:selector xpath="select"/>
-			<xsd:field xpath="@id"/>
-		</xsd:unique>		
+			<xsd:selector xpath=".//*" />
+			<xsd:field xpath="@id" />
+		</xsd:unique>
 	</xsd:element>
-	
+
 	<xsd:complexType name="InfluxqlType">
-		<xsd:all>
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="include">
 				<xsd:complexType>
-					<xsd:attribute name="path" use="required"/>
+					<xsd:attribute name="path" use="required" />
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="select">
@@ -37,7 +34,7 @@
 				<xsd:complexType>
 					<xsd:simpleContent>
 						<xsd:extension base="xsd:string">
-							<xsd:attribute name="id" type="xsd:string" use="required"/>
+							<xsd:attribute name="id" type="xsd:string" use="required" />
 						</xsd:extension>
 					</xsd:simpleContent>
 				</xsd:complexType>
@@ -51,11 +48,11 @@
 				<xsd:complexType>
 					<xsd:simpleContent>
 						<xsd:extension base="xsd:string">
-							<xsd:attribute name="id" type="xsd:string" use="required"/>
+							<xsd:attribute name="id" type="xsd:string" use="required" />
 						</xsd:extension>
 					</xsd:simpleContent>
 				</xsd:complexType>
 			</xsd:element>
-		</xsd:all>
+		</xsd:choice>
 	</xsd:complexType>
 </xsd:schema>
