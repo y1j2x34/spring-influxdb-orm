@@ -3,3 +3,5 @@
 /.settings
 /.classpath
 /.project
+/.idea
+/spring-influxdb-orm.iml
