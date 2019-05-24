@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.vgerbot.orm.influxdb.configure.RepositoryAutoConfigure,\
+com.vgerbot.orm.influxdb.configure.MapperScannerAutoConfigure

@@ -1,7 +1,7 @@
-/target
 /bin
 /.settings
 /.classpath
 /.project
 /.idea
-/spring-influxdb-orm.iml
+/**/*.iml
+target

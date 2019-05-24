@@ -1,80 +1,68 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.vgerbot</groupId>
-	<artifactId>vgerbot-influxdb-orm</artifactId>
-	<version>1.0.0</version>
-	<developers>
-		<developer>
-			<email>y1j2x34@qq.com</email>
-			<url>https://github.com/y1j2x34</url>
-		</developer>
-	</developers>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.7.RELEASE</spring.version>
-		<influxdb-java.version>2.10</influxdb-java.version>
-		<junit.version>4.12</junit.version>
-	</properties>
+    <groupId>com.vgerbot</groupId>
+    <artifactId>spring-influxdb-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.influxdb</groupId>
-			<artifactId>influxdb-java</artifactId>
-			<version>2.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.18.1-GA</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-			<version>${junit.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.9.2</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>5.0.8.RELEASE</spring.version>
+        <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+        <influxdb-java.version>2.7</influxdb-java.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>Jian Xin Yang</name>
+            <email>vgerbot@gmail.com</email>
+            <url>https://github.com/y1j2x34</url>
+        </developer>
+    </developers>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <sourceDirectory>
+            src/main/java
+        </sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <testSourceDirectory>
+            src/test/java
+        </testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </testResource>
+        </testResources>
+    </build>
+
+    <modules>
+        <module>spring-influxdb-orm</module>
+        <module>spring-influxdb-orm-autoconfigure</module>
+    </modules>
+
+
 </project>
