@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.vgerbot</groupId>
 		<artifactId>spring-influxdb-parent</artifactId>
-    	<version>1.0.0</version>
+    	<version>1.0.0.SNAPSHOT</version>
 	</parent>
     <packaging>jar</packaging>
 	<artifactId>spring-influxdb-orm</artifactId>
