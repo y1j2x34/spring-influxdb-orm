@@ -5,7 +5,10 @@ install:
   - tar -xvf /tmp/influxdb.tar.gz
   - export PATH=$PATH:$PWD/influxdb-1.2.2-1/usr/bin
 
-before_script: ./data/restore.sh
+before_script:
+  - influxd restore -metadir /var/lib/influxdb/meta ./data/backups
+  - influxd restore -database test -datadir /var/lib/influxdb/data ./data/backups
+  - sudo service influxdb start
 
 script: "mvn cobertura:cobertura"
 
