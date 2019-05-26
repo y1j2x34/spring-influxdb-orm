@@ -1,5 +1,8 @@
 # spring-influxdb-orm
 
+[![Build Status](https://travis-ci.org/y1j2x34/spring-influxdb-orm.svg?branch=master)](https://travis-ci.org/y1j2x34/spring-influxdb-orm)
+[![codecov.io](https://codecov.io/github/y1j2x34/spring-influxdb-orm/coverage.svg?branch=master)](https://codecov.io/github/y1j2x34/spring-influxdb-orm)
+
 ## Usages
 
 ### Basic Usages

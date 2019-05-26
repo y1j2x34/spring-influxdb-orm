@@ -1,5 +1,12 @@
 language: java
 sudo: false
+install:
+  - wget https://dl.influxdata.com/influxdb/releases/influxdb-1.2.2_linux_amd64.tar.gz -O /tmp/influxdb.tar.gz
+  - tar -xvf /tmp/influxdb.tar.gz
+  - export PATH=$PATH:$PWD/influxdb-1.2.2-1/usr/bin
+
+before_script: ./data/restore.sh
+
 script: "mvn cobertura:cobertura"
 
 after_success:
