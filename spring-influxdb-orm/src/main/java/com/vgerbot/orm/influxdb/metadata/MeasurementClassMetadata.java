@@ -77,6 +77,7 @@ public class MeasurementClassMetadata {
 		this.measurementName = annotation.value();
 		this.retentionPolicy = StringUtils.isBlank(annotation.retentionPolicy()) ? defaultRetentionPolicy : annotation.retentionPolicy();
 		this.shardingFieldDescriptor = descriptorsMap.get(annotation.shardingField());
+		this.datetimePatterns = annotation.datetimePatterns();
 
 		findFields(descriptorsMap);
 		findTags(descriptorsMap);
