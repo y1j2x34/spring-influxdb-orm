@@ -1,12 +1,15 @@
 package com.vgerbot.orm.influxdb.factory;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.vgerbot.orm.influxdb.utils.ResultResolvers;
+import javassist.util.proxy.MethodFilter;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -39,6 +42,14 @@ public class MapperFactoryBean<T extends InfluxDBDao<?>> implements FactoryBean<
 	public void afterPropertiesSet() throws Exception {
 		ProxyFactory factory = new ProxyFactory();
 		factory.setInterfaces(new Class[] { mapperInterface });
+		factory.setFilter(new MethodFilter() {
+            @Override
+            public boolean isHandled(Method m) {
+                Class<?> declaringClass = m.getDeclaringClass();
+                boolean isAbstract = Modifier.isAbstract(m.getModifiers());
+                return declaringClass != Object.class || isAbstract;
+            }
+        });
 		@SuppressWarnings("unchecked")
 		Class<T> cls = factory.createClass();
 		T instance = cls.newInstance();
@@ -47,20 +58,10 @@ public class MapperFactoryBean<T extends InfluxDBDao<?>> implements FactoryBean<
 		this.object = instance;
 
 		CompositeResultResolver compositeResultResolver = new CompositeResultResolver();
-		compositeResultResolver.setResolvers(defaultResolvers());
+		compositeResultResolver.setResolvers(ResultResolvers.getDefaultResultResolverList());
 
 		resultResolver = compositeResultResolver;
 
-	}
-
-	private List<ResultResolver<?>> defaultResolvers() {
-		List<ResultResolver<?>> resolvers = new LinkedList<>();
-
-		resolvers.add(new NativeResultResolver());
-		resolvers.add(new SingleResultResolver());
-		resolvers.add(new VoidResultResolver());
-		resolvers.add(new WrapperResultResolver());
-		return resolvers;
 	}
 
 	public void setMapperInterface(Class<T> mapperInterface) {
@@ -88,14 +89,9 @@ public class MapperFactoryBean<T extends InfluxDBDao<?>> implements FactoryBean<
 
 	private final class MapperMethodHandler implements MethodHandler {
 		private final ConcurrentMap<Method, MapperMethod> methods = new ConcurrentHashMap<>();
-		private final MapperObject object = new MapperObject();
-
 		@Override
 		public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
 			Class<?> declaringClass = thisMethod.getDeclaringClass();
-			if (declaringClass == Object.class) {
-				return thisMethod.invoke(object, args);
-			}
 			MapperMethod mapperMethod = methods.get(thisMethod);
 			if (mapperMethod == null) {
 				MethodSignature signature = new MethodSignature(declaringClass, thisMethod);
@@ -111,13 +107,6 @@ public class MapperFactoryBean<T extends InfluxDBDao<?>> implements FactoryBean<
 			ResultContext context = executor.execute(mapperMethod, parameters);
 
 			return resultResolver.resolve(context, mapperMethod.getMethodSignature(), repository);
-		}
-	}
-
-	private final class MapperObject {
-		@Override
-		public String toString() {
-			return mapperInterface.getName() + '#' + Integer.toHexString(this.hashCode());
 		}
 	}
 }
