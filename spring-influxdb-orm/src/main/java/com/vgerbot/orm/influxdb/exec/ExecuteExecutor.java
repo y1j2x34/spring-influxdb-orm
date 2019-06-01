@@ -18,8 +18,7 @@ public class ExecuteExecutor extends AnnotationExecutor<InfluxDBExecute> {
 	@Override
 	public ResultContext execute(MapperMethod method, Map<String, ParameterValue> parameters) {
 		String command = super.annotation.value();
-		String parsedCommand = CommandUtils.parseCommand(command, parameters);
-		repository.execute(parsedCommand);
+		repository.execute(command, parameters);
 		return ResultContext.VOID;
 	}
 

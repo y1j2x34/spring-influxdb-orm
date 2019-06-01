@@ -29,13 +29,12 @@ public class InfluxQLAnnotExecutor extends AnnotationExecutor<InfluxQL> {
 		if (statement == null) {
 			throw new InfluxDBException("Statement not found: " + key);
 		}
-		String influxQL = CommandUtils.parseCommand(statement.getTemplate(), parameters);
 
 		switch (statement.getAction()) {
 		case SELECT:
-			return this.repository.query(influxQL);
+			return this.repository.query(statement.getTemplate(), parameters);
 		case EXECUTE:
-			this.repository.execute(influxQL);
+			this.repository.execute(statement.getTemplate(), parameters);
 		}
 		return ResultContext.VOID;
 	}

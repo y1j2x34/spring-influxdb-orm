@@ -17,4 +17,9 @@ public @interface InfluxDBSelect {
 	 * @return
 	 */
 	String value();
+
+	/**
+	 * @see GroupedSelects
+	 */
+	String key() default "";
 }

@@ -3,11 +3,7 @@ package com.vgerbot.orm.influxdb.exec;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
@@ -110,7 +106,7 @@ public class ImplementationExecutor extends Executor {
 		public List<Serializable> selectAll() {
 			String measurementName = metadata.getMeasurementName();
 			String policy = metadata.getRetentionPolicy();
-			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\"", policy, measurementName));
+			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\"", policy, measurementName), Collections.emptyMap());
 			return convertResult(result);
 		}
 
@@ -124,7 +120,7 @@ public class ImplementationExecutor extends Executor {
 
 			String measurementName = metadata.getMeasurementName();
 			String policy = metadata.getRetentionPolicy();
-			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\" %s", policy, measurementName, whereClause));
+			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\" %s", policy, measurementName, whereClause), Collections.emptyMap());
 
 			return convertResult(result);
 		}
@@ -159,7 +155,7 @@ public class ImplementationExecutor extends Executor {
 
 			String measurementName = metadata.getMeasurementName();
 			String policy = metadata.getRetentionPolicy();
-			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\" %s", policy, measurementName, whereClause));
+			ResultContext result = repository.query(String.format("select * from \"%s\".\"%s\" %s", policy, measurementName, whereClause), Collections.emptyMap());
 
 			return convertResult(result);
 		}

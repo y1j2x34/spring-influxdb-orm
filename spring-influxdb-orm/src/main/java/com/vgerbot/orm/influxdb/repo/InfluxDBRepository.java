@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.vgerbot.orm.influxdb.param.ParameterValue;
+import com.vgerbot.orm.influxdb.utils.CommandUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.BatchPoints;
@@ -72,7 +74,8 @@ public class InfluxDBRepository {
 		transform(classmetadata, classmetadataMapByKey);
 	}
 
-	public void execute(final String command) {
+	public void execute(String command, final Map<String, ParameterValue> parameters) {
+		command = CommandUtils.parseCommand(command, parameters);
 		if (logger.isLoggable(Level.INFO)) {
 			logger.info("execute → " + command);
 		}
@@ -80,7 +83,8 @@ public class InfluxDBRepository {
 		influxDB.query(query, DEFAULT_TIME_UNIT);
 	}
 
-	public ResultContext query(final String command) {
+	public ResultContext query(String command, final Map<String, ParameterValue> parameters) {
+		command = CommandUtils.parseCommand(command, parameters);
 		if (logger.isLoggable(Level.INFO)) {
 			logger.info("query → " + command);
 		}

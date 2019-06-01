@@ -4,11 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.vgerbot.orm.influxdb.InfluxDBDao;
-import com.vgerbot.orm.influxdb.annotations.InfluxDBExecute;
-import com.vgerbot.orm.influxdb.annotations.InfluxDBParam;
-import com.vgerbot.orm.influxdb.annotations.InfluxDBSelect;
-import com.vgerbot.orm.influxdb.annotations.InfluxQL;
-import com.vgerbot.orm.influxdb.annotations.SpecifiedExecutor;
+import com.vgerbot.orm.influxdb.annotations.*;
 import com.vgerbot.orm.influxdb.binding.MapperMethod;
 import com.vgerbot.orm.influxdb.exec.Executor;
 import com.vgerbot.orm.influxdb.param.ParameterValue;
