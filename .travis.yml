@@ -1,9 +1,10 @@
+os: linux
 language: java
 sudo: false
 install:
-  - wget https://dl.influxdata.com/influxdb/releases/influxdb-1.2.2_linux_amd64.tar.gz -O /tmp/influxdb.tar.gz
-  - tar -xvf /tmp/influxdb.tar.gz
-  - export PATH=$PATH:$PWD/influxdb-1.2.2-1/usr/bin
+  - uname -a
+  - wget https://dl.influxdata.com/influxdb/releases/influxdb_1.2.2_amd64.deb
+  - sudo dpkg -i influxdb_1.2.2_amd64.deb
 
 before_script:
   - influxd restore -metadir /var/lib/influxdb/meta ./data/backups
