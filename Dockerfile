@@ -7,8 +7,8 @@ RUN apt-get update;\
     rm ./influxdb.deb; \
     mkdir -p /var/lib/influxdb/meta /var/lib/influxdb/data /backups /scripts
 
-COPY ./data/backups/ /backups/
-COPY ./scripts/ /scripts/
+COPY ./src/resources/backups/ /backups/
+COPY ./src/scripts/ /scripts/
 
 RUN chmod +x /scripts/start.sh /scripts/restore.sh
 

@@ -1,6 +1,12 @@
 os: linux
 language: java
 sudo: true
+services: docker
+
+cache:
+  directories:
+    - "$HOME/.m2"
+
 install:
   - uname -a
   - sudo docker  build --rm -t influxdb:test .
@@ -8,7 +14,7 @@ install:
 before_script:
   - docker run -d -p 8086:8086 influxdb:test
   - sleep 1
-
+  - curl -o $HOME/.m2/settings.xml https://raw.githubusercontent.com/y1j2x34/spring-influxdb-orm/master/src/resources/settings.xml
 script: "mvn cobertura:cobertura -X"
 
 after_success:
