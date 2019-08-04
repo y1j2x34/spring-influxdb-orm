@@ -1,0 +1,13 @@
+* text=auto eol=lf
+
+*.java text
+*.xml text
+*.properties text
+*.sh text
+*.xsd text
+*.handlers text
+*.factories text
+*.schemas text
+Dockerfile text
+
+* text eol=lf

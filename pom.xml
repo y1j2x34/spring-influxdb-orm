@@ -7,7 +7,7 @@
     <groupId>com.vgerbot</groupId>
     <artifactId>spring-influxdb-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,6 +46,13 @@
                         <format>xml</format>
                     </formats>
                     <check />
+                    <instrumentation>
+                        <excludes>
+                            <exclude>
+                                com/vgerbot/orm/influxdb/annotations/*.class
+                            </exclude>
+                        </excludes>
+                    </instrumentation>
                 </configuration>
             </plugin>
         </plugins>
