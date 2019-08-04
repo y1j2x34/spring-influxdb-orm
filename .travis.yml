@@ -1,17 +1,15 @@
 os: linux
 language: java
-sudo: false
+sudo: true
 install:
   - uname -a
-  - wget https://dl.influxdata.com/influxdb/releases/influxdb_1.2.2_amd64.deb
-  - sudo dpkg -i influxdb_1.2.2_amd64.deb
+  - sudo docker  build --rm -t influxdb:test .
 
 before_script:
-  - influxd restore -metadir /var/lib/influxdb/meta ./data/backups
-  - influxd restore -database test -datadir /var/lib/influxdb/data ./data/backups
-  - sudo service influxdb start
+  - docker run -d -p 8086:8086 influxdb:test
+  - sleep 1
 
-script: "mvn cobertura:cobertura"
+script: "mvn cobertura:cobertura -X"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
