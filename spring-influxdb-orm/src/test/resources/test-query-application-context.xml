@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:influxdb="http://www.vgerbot.com/schema/influxdb"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.vgerbot.com/schema/influxdb http://www.vgerbot.com/schema/influxdb/influxdb.xsd">
+
+    <influxdb:mapper entity-base-package="com.vgerbot.test.orm.influxdb.mockrepository.query_annotation.entity"
+                     dao-base-package="com.vgerbot.test.orm.influxdb.mockrepository.query_annotation.dao" repository-class="com.vgerbot.test.orm.influxdb.mockrepository.MockInfluxDBRepositoryFactoryBean">
+
+        <influxdb:datasource database="test" host="127.0.0.1"
+                             port="8086" scheme="http" username="admin" password="4NDVzs3I1c4="/>
+
+        <influxdb:config enable-gzip="false"
+                         http-connect-timeout="10000" http-read-timeout="10000"
+                         http-write-timeout="10000" enable-batch="false"/>
+    </influxdb:mapper>
+
+</beans>
