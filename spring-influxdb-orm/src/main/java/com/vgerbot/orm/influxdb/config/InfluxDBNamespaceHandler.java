@@ -29,6 +29,7 @@ public class InfluxDBNamespaceHandler extends NamespaceHandlerSupport {
 	public static final String INFLUX_QL_ELEMENT = "influxql";
 	public static final String INFLUX_QL_ATTR_PATH = "path";
 
+	public static final String REPOSITORY_BEAN_CLASS_NAME = "repository-class";
 	@Override
 	public void init() {
 		registerBeanDefinitionParser("mapper", new InfluxDBBeanDefinitionParser());

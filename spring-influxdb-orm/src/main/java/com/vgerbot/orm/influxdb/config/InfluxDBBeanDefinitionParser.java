@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vgerbot.orm.influxdb.factory.ClassPathMeasurementScannerFactoryBean;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -19,7 +21,7 @@ import com.vgerbot.orm.influxdb.mapper.MapperScannerConfigurer;
 public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 
 	@Override
-	public BeanDefinition parse(Element element, ParserContext parserContext) {
+	public BeanDefinition parse(Element element, ParserContext parserContext){
 
 		String repositoryName = parseRepository(element, parserContext);
 
@@ -38,7 +40,23 @@ public class InfluxDBBeanDefinitionParser implements BeanDefinitionParser {
 	private String parseRepository(Element element, ParserContext parserContext) {
 		String measurementBasePackage = element.getAttribute(InfluxDBNamespaceHandler.MEASUREMENT_BASE_PACKAGE_ATTRIBUTE);
 
-		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(InfluxDBRepositoryFactoryBean.class);
+		String repositoryBeanClassName = element.getAttribute(InfluxDBNamespaceHandler.REPOSITORY_BEAN_CLASS_NAME);
+
+		Class<?> repositoryBeanClass;
+		if(StringUtils.isEmpty(repositoryBeanClassName)) {
+			repositoryBeanClass = InfluxDBRepositoryFactoryBean.class;
+		} else {
+			try {
+				repositoryBeanClass = Class.forName(repositoryBeanClassName);
+			} catch (ClassNotFoundException e) {
+				throw new BeanCreationException("An error occurred to create influxDB repository", e);
+			}
+			if(repositoryBeanClass.isAssignableFrom(InfluxDBRepositoryFactoryBean.class)) {
+				throw new BeanCreationException(repositoryBeanClassName + " is not assignable from " + InfluxDBRepositoryFactoryBean.class.getName());
+			}
+		}
+
+		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(repositoryBeanClass);
 
 		String measurementScannerBeanName = this.generageMeasurementScannerBean(measurementBasePackage, parserContext);
 
