@@ -10,7 +10,18 @@ import org.mockito.internal.util.Primitives;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class MockitoMatchers {
+    private static ParameterSignature createMockParameterSignature(int index, String name, Class<?> type) {
+        ParameterSignature signature = mock(ParameterSignature.class);
+        when(signature.getIndex()).thenReturn(index);
+        when(signature.getName()).thenReturn(name);
+        when((Object)signature.getType()).thenReturn(type);
+        return signature;
+    }
+
     public static Map<String, ParameterValue> parameters(Map<String, ParameterValue> value) {
         return customize(
                 new ParametersArgumentMatcher(value),

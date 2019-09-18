@@ -6,6 +6,7 @@ import com.vgerbot.orm.influxdb.param.ParameterValue;
 import com.vgerbot.orm.influxdb.repo.InfluxDBRepository;
 import com.vgerbot.orm.influxdb.result.NativeResultContext;
 import com.vgerbot.test.orm.influxdb.common.MockDatas;
+import com.vgerbot.test.orm.influxdb.common.MockParameterMap;
 import com.vgerbot.test.orm.influxdb.common.MockitoMatchers;
 import com.vgerbot.test.orm.influxdb.mockrepository.MockInfluxDBRepositoryFactoryBean;
 import com.vgerbot.test.orm.influxdb.mockrepository.query_annotation.dao.BandwithMonitorDao;
@@ -33,7 +34,7 @@ import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-query-application-context.xml")
-public class MockInfluxDBTest {
+public class InfluxDBSelectAnnotationTest {
     private static final class MockRepositoryGenerator implements MockInfluxDBRepositoryFactoryBean.RepositoryGenerator {
 
         @Mock
@@ -60,13 +61,9 @@ public class MockInfluxDBTest {
 
     @Before
     public void setup() {
-        Map<String, ParameterValue> parameters = new HashMap<String, ParameterValue>(){{
-            ParameterValue value = mock(ParameterValue.class);
-            ParameterSignature parameterSignature = createMockParameterSignature(0, "ipAddress", String.class);
-            when(value.getSignature()).thenReturn(parameterSignature);
-            when(value.getValue()).thenReturn("0.0.0.0");
-            this.put("ipAddress", value);
-            this.put("arg0", value);
+        Map<String, ParameterValue> parameters = new MockParameterMap(){{
+            this.putParameter(0, "ipAddress", String.class, "0.0.0.0");
+            this.putParameter(0, "arg0", String.class, "0.0.0.0");
         }};
         QueryResult result = MockDatas.createSingleMeasurementQueryResult(
                 "bandwidth_monitor",
