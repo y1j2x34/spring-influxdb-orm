@@ -5,15 +5,22 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyEditor;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.vgerbot.orm.influxdb.EnumType;
 
 public class EnumsValuePropertyEditor implements PropertyEditor {
 	private EnumType value;
 	private final Class<? extends EnumType> enumType;
-
+	private final Map<Object, EnumType> enumValueMap;
 	public EnumsValuePropertyEditor(Class<? extends EnumType> enumType) {
 		this.enumType = enumType;
+		EnumType[] constants = (EnumType[])enumType.getEnumConstants();
+		enumValueMap = new HashMap<>(constants.length);
+		for(EnumType constant: constants) {
+			enumValueMap.put(constant.getValue(), constant);
+		}
 	}
 
 	@Override
@@ -53,7 +60,10 @@ public class EnumsValuePropertyEditor implements PropertyEditor {
 	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setAsText(String text) throws IllegalArgumentException {
-		Object value = Enum.valueOf((Class) this.enumType, text);
+		if(!this.enumValueMap.containsKey(text)) {
+			throw new IllegalArgumentException("No enum value \""+text+"\" found of " + enumType);
+		}
+		Object value = this.enumValueMap.get(text);
 		this.value = (EnumType) value;
 	}
 

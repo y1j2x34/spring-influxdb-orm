@@ -72,7 +72,29 @@ public class InfluxDBRepository {
 		this.typeConverter.registerCustomEditor(Date.class, new DatePropertyEditor());
 
 		transform(classmetadata, classmetadataMapByKey);
+
+		scanAndRegisterEnumTypeEditors(this.typeConverter, classmetadata);
 	}
+
+	private void scanAndRegisterEnumTypeEditors(TypeConverterSupport typeConverter, Map<String, MeasurementClassMetadata> classmetadatas) {
+		for(MeasurementClassMetadata classMetadata: classmetadatas.values()) {
+			checkAndRegisterEnumTypeEditors(typeConverter, classMetadata.getTagColumnDescriptors().values());
+			checkAndRegisterEnumTypeEditors(typeConverter, classMetadata.getFieldColumnDescriptors().values());
+		}
+	}
+
+	private void checkAndRegisterEnumTypeEditors(TypeConverterSupport typeConverter, Collection<PropertyDescriptor> values) {
+		for(PropertyDescriptor dspr: values) {
+			Class propertyType = dspr.getReadMethod().getReturnType();
+			if(!EnumType.class.isAssignableFrom(propertyType)) {
+				continue;
+			}
+			if(!typeConverter.hasCustomEditorForElement(propertyType, null)) {
+				typeConverter.registerCustomEditor(propertyType, new EnumsValuePropertyEditor(propertyType));
+			}
+		}
+	}
+
 
 	public void execute(String command, final Map<String, ParameterValue> parameters) {
 		command = CommandUtils.parseCommand(command, parameters);
@@ -199,7 +221,6 @@ public class InfluxDBRepository {
 			final String fieldName = entry.getKey();
 			final PropertyDescriptor valueDescriptor = entry.getValue();
 			final Method readMethod = valueDescriptor.getReadMethod();
-			checkConvertableType(readMethod);
 			final Object value = valueOfField(readMethod, entity);
 
 			Class<?> fieldJavaType = readMethod.getReturnType();
@@ -235,7 +256,6 @@ public class InfluxDBRepository {
 			final String tagName = entry.getKey();
 			final PropertyDescriptor valueDescriptor = entry.getValue();
 			final Method readMethod = valueDescriptor.getReadMethod();
-			checkConvertableType(readMethod);
 			final Object value = valueOfTag(readMethod, entity);
 			final String converted = this.typeConverter.convertIfNecessary(value, String.class);
 			if (converted == null && value != null) {
@@ -258,14 +278,6 @@ public class InfluxDBRepository {
 			return readMethod.invoke(entity);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new InfluxDBException("An error occorred while reading tag field value", e);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void checkConvertableType(final Method readMethod) {
-		final Class<?> returnType = readMethod.getReturnType();
-		if (!this.typeConverter.hasCustomEditorForElement(returnType, null) && EnumType.class.isAssignableFrom(returnType)) {
-			this.typeConverter.registerCustomEditor(returnType, new EnumsValuePropertyEditor((Class<? extends EnumType>) returnType));
 		}
 	}
 
