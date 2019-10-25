@@ -15,17 +15,6 @@ import java.lang.reflect.WildcardType;
 public class TypeParameterResolver {
 
 	/**
-	 * @return The field type as {@link Type}. If it has type parameters in the
-	 *         declaration,<br>
-	 *         they will be resolved to the actual runtime {@link Type}s.
-	 */
-	public static Type resolveFieldType(Field field, Type srcType) {
-		Type fieldType = field.getGenericType();
-		Class<?> declaringClass = field.getDeclaringClass();
-		return resolveType(fieldType, srcType, declaringClass);
-	}
-
-	/**
 	 * @return The return type of the method as {@link Type}. If it has type
 	 *         parameters in the declaration,<br>
 	 *         they will be resolved to the actual runtime {@link Type}s.
@@ -34,21 +23,6 @@ public class TypeParameterResolver {
 		Type returnType = method.getGenericReturnType();
 		Class<?> declaringClass = method.getDeclaringClass();
 		return resolveType(returnType, srcType, declaringClass);
-	}
-
-	/**
-	 * @return The parameter types of the method as an array of {@link Type}s.
-	 *         If they have type parameters in the declaration,<br>
-	 *         they will be resolved to the actual runtime {@link Type}s.
-	 */
-	public static Type[] resolveParamTypes(Method method, Type srcType) {
-		Type[] paramTypes = method.getGenericParameterTypes();
-		Class<?> declaringClass = method.getDeclaringClass();
-		Type[] result = new Type[paramTypes.length];
-		for (int i = 0; i < paramTypes.length; i++) {
-			result[i] = resolveType(paramTypes[i], srcType, declaringClass);
-		}
-		return result;
 	}
 
 	private static Type resolveType(Type type, Type srcType, Class<?> declaringClass) {
@@ -121,8 +95,8 @@ public class TypeParameterResolver {
 	}
 
 	private static Type resolveTypeVar(TypeVariable<?> typeVar, Type srcType, Class<?> declaringClass) {
-		Type result = null;
-		Class<?> clazz = null;
+		Type result;
+		Class<?> clazz;
 		if (srcType instanceof Class) {
 			clazz = (Class<?>) srcType;
 		} else if (srcType instanceof ParameterizedType) {
@@ -199,7 +173,7 @@ public class TypeParameterResolver {
 
 		private Type[] actualTypeArguments;
 
-		public ParameterizedTypeImpl(Class<?> rawType, Type ownerType, Type[] actualTypeArguments) {
+		ParameterizedTypeImpl(Class<?> rawType, Type ownerType, Type[] actualTypeArguments) {
 			super();
 			this.rawType = rawType;
 			this.ownerType = ownerType;

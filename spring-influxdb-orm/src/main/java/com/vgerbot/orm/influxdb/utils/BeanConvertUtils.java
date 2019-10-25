@@ -24,7 +24,7 @@ public class BeanConvertUtils {
 	public static <T> T convert(Map<String, Object> source, MeasurementClassMetadata metadata, TypeConverter convert) {
 		Class<?> measurementClass = metadata.getMeasurementClass();
 
-		T target = null;
+		T target ;
 
 		Constructor<T> constructor = (Constructor<T>) constructorOf(measurementClass);
 		try {
@@ -84,7 +84,7 @@ public class BeanConvertUtils {
 			}
 		}
 		PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(targetType);
-		T target = null;
+		T target;
 
 		Constructor<T> constructor = constructorOf(targetType);
 		try {
