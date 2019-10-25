@@ -27,8 +27,15 @@ public class EnumsValuePropertyEditor implements PropertyEditor {
 	public void setValue(Object value) {
 		if (value instanceof EnumType) {
 			this.value = (EnumType) value;
+		} else if(value instanceof CharSequence) {
+			EnumType foundEnumValue = enumValueMap.get(value.toString());
+			if(foundEnumValue != null) {
+				this.value = foundEnumValue;
+			} else {
+				throw new IllegalArgumentException("enum constant not found: " + value);
+			}
 		} else {
-			throw new IllegalArgumentException("not instanceof EnumsValue");
+			throw new IllegalArgumentException("not instanceof EnumsValue: " + value);
 		}
 	}
 
