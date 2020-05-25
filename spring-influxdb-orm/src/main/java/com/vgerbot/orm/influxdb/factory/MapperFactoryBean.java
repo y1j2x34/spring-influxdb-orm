@@ -105,7 +105,7 @@ public class MapperFactoryBean<T extends InfluxDBDao<?>> implements FactoryBean<
 			Map<String, ParameterValue> parameters = mapperMethod.getProducer().produce(args);
 			Executor executor = mapperMethod.getExecutor();
 			ResultContext context = executor.execute(mapperMethod, parameters);
-
+			// TODO: Add supports to customize result resolver via annotation
 			return resultResolver.resolve(context, mapperMethod.getMethodSignature(), repository);
 		}
 	}

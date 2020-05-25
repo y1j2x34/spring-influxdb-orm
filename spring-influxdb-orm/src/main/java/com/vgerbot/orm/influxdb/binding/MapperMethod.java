@@ -3,6 +3,7 @@ package com.vgerbot.orm.influxdb.binding;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.vgerbot.orm.influxdb.annotations.CoberturaIgnore;
 import com.vgerbot.orm.influxdb.exec.Executor;
 import com.vgerbot.orm.influxdb.exec.ExecutorFactory;
 import com.vgerbot.orm.influxdb.param.AnnotationParameterProducer;
@@ -46,11 +47,13 @@ public class MapperMethod {
 		return mapperInterface;
 	}
 
+	@CoberturaIgnore
 	public InfluxDBRepository getRepository() {
 		return repository;
 	}
 
 	@Override
+	@CoberturaIgnore
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -59,6 +62,7 @@ public class MapperMethod {
 	}
 
 	@Override
+	@CoberturaIgnore
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

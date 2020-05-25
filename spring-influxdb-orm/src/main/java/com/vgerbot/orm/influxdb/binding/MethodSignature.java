@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 
+import com.vgerbot.orm.influxdb.annotations.CoberturaIgnore;
 import com.vgerbot.orm.influxdb.utils.TypeParameterResolver;
 
 public class MethodSignature {
@@ -75,6 +76,7 @@ public class MethodSignature {
 	}
 
 	@Override
+	@CoberturaIgnore
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -83,6 +85,7 @@ public class MethodSignature {
 	}
 
 	@Override
+	@CoberturaIgnore
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

@@ -53,6 +53,8 @@
                                 com/vgerbot/orm/influxdb/annotations/*.class
                             </exclude>
                         </excludes>
+                        <ignoreTrivial>true</ignoreTrivial>
+                        <ignoreMethodAnnotation>com.vgerbot.orm.influxdb.annotations.CoberturaIgnore</ignoreMethodAnnotation>
                     </instrumentation>
                 </configuration>
             </plugin>
