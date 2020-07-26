@@ -20,7 +20,7 @@ before_script:
   - docker run -d -p 8086:8086 influxdb:test
   - sleep 1
   - curl -o $HOME/.m2/settings.xml https://raw.githubusercontent.com/y1j2x34/spring-influxdb-orm/master/src/resources/settings.xml
-script: "mvn cobertura:cobertura -X"
+script: "mvn cobertura:cobertura"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
