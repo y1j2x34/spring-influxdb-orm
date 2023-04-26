@@ -1,0 +1,27 @@
+name: tests
+on:
+  push:
+jobs:
+  test:
+    name: Run unit tests and collect coverage data
+    strategy:
+      matrix:
+        java: [8]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2
+            ~/.docker
+          key: ${{ runner.os }}-build-${{ hashFiles('**/pom.xml') }}
+      - run: cd $GITHUB_WORKSPACE; docker build --rm -t influxdb:test .
+      - run: cd $GITHUB_WORKSPACE; docker run -d -p 8086:8086 influxdb:test
+      - run: curl -o ~/.m2/settings.xml https://raw.githubusercontent.com/y1j2x34/spring-influxdb-orm/master/src/resources/settings.xml
+      - run: mvn cobertura:cobertura
+      - run: curl -s https://codecov.io/bash | bash
