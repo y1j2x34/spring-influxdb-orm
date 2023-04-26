@@ -20,7 +20,7 @@
 
     <developers>
         <developer>
-            <name>Jian Xin Yang</name>
+            <name>JianXin Yang</name>
             <email>vgerbot@gmail.com</email>
             <url>https://github.com/y1j2x34</url>
         </developer>
@@ -88,5 +88,11 @@
         <module>spring-influxdb-orm-autoconfigure</module>
     </modules>
 
-
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
